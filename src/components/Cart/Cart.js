@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import "./Cart.css";
@@ -16,6 +17,12 @@ export function Cart( { checkout, history, productsInCart } ) {
 			price={ product.price }
 		/>
 	) );
+
+	function checkoutAndRedirect(){
+		checkout();
+		history.push("/thank-you");
+	}
+
 	const cartTotal = productsInCart.reduce( ( total, { price } ) => total + price, 0 );
 	return (
 		<div className="cart">
@@ -30,7 +37,7 @@ export function Cart( { checkout, history, productsInCart } ) {
 							<div className="cart__total">
 								${ cartTotal }
 							</div>
-							<button className="cart__checkout">Checkout</button>
+							<button className="cart__checkout" onClick={ checkoutAndRedirect }>Checkout</button>
 						</main>
 			}
 		</div>
